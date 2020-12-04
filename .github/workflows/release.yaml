@@ -156,11 +156,13 @@ jobs:
     - name: Build archive
       shell: bash
       run: |
-        outdir="$(find target -type d -name release)"
         staging="hoge-${{ env.RELEASE_VERSION }}-${{ matrix.target }}"
         mkdir -p "$staging"
 
         cp {README.md,COPYING,LICENSE-MIT} "$staging/"
+        cp "target/${{ matrix.target }}/release/hoge" "$staging/"
+        tar czf "$staging.tar.gz" "$staging"
+        echo "ASSET=$staging.tar.gz" >> $GITHUB_ENV
 
     - name: Upload release archive
       uses: actions/upload-release-asset@v1.0.1
