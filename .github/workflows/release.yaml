@@ -158,9 +158,8 @@ jobs:
     - name: Build archive
       shell: bash
       run: |
-        outdir="$(ci/cargo-out-dir "${{ env.TARGET_DIR }}")"
-        staging="ripgrep-${{ env.RELEASE_VERSION }}-${{ matrix.target }}"
-        mkdir -p "$staging"/{complete,doc}
+        outdir="$(find target -type d -name release)"
+        staging="hoge-${{ env.RELEASE_VERSION }}-${{ matrix.target }}"
 
         cp {README.md,COPYING,LICENSE-MIT} "$staging/"
 
